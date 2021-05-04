@@ -7,7 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.hohuyhoangg.salesmanager18110284.R;
+import com.hohuyhoangg.salesmanager18110284.utils.GenerateUtils;
+import com.hohuyhoangg.salesmanager18110284.utils.HashUtils;
+import com.hohuyhoangg.salesmanager18110284.utils.MailUtils;
 
 public class ResetPassword extends AppCompatActivity {
 
@@ -29,7 +33,6 @@ public class ResetPassword extends AppCompatActivity {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(ResetPassword.this, ResetPasswordSuccess.class);
                 startActivity(intent);
             }
