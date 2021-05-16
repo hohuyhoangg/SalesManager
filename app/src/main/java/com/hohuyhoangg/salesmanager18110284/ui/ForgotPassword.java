@@ -43,7 +43,7 @@ public class ForgotPassword extends AppCompatActivity {
         });
     }
     public void sendMail(String email){
-        String otp = GenerateUtils.oneTimePassword(6);
+        String otp = GenerateUtils.oneTimePassword(4);
         String sVerify = "OTP: " + otp;
 
         MailAPI mailAPI = new MailAPI(this,email,"CODE",sVerify);

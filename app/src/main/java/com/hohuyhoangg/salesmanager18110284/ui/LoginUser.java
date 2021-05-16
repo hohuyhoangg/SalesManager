@@ -3,7 +3,9 @@ package com.hohuyhoangg.salesmanager18110284.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +22,8 @@ import com.hohuyhoangg.salesmanager18110284.utils.HashUtils;
 
 public class LoginUser extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     TextView txtForgotPassword,txtRegisterNow;
     TextInputLayout inputUsername,inputPassword;
     Button btnLogin;
@@ -70,6 +74,10 @@ public class LoginUser extends AppCompatActivity {
                 try {
                     Long userId = LoginUserController.getInstance().checkLogin(userName,password);
                     if(userId != 0){
+                        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
+                        editor = sharedPreferences.edit();
+                        editor.putString("account", userId.toString());
+                        editor.commit();
                         Toast.makeText(getApplication(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
                     }
                     else {

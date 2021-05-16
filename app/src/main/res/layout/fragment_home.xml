@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.nav.HomeFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#60B2D6"
+                android:text="taki"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                android:paddingTop="6dp"
+                android:textColor="#5A5858"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:background="#60B2D6"
+                android:paddingLeft="10dp">
+
+                <EditText
+                    android:layout_width="350dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    android:background="@drawable/text_user"
+                    android:drawableLeft="@drawable/ic_baseline_search_24"
+                    android:hint="Bạn tìm kiếm gì hôm nay?"
+                    />
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="36dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/text_user"
+                    android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+            </LinearLayout>
+            <com.synnapps.carouselview.CarouselView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    app:pageColor="#F8F8F5"
+                    app:fillColor="#EDEAEA"
+                    app:slideInterval="3000"
+                    app:radius="4dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#FF777777"
+                    android:id="@+id/carouselView" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#5A5A59"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:text="DANH MỤC SẢN PHẨM"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:id="@+id/recyclerviewCategory_id"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#5A5A59"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:text="SẢN PHẨM"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recyclerviewProduct_id"/>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</FrameLayout>

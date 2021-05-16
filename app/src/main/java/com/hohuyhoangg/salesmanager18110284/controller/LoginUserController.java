@@ -19,7 +19,9 @@ public class LoginUserController {
     }
 
     public Long checkLogin(String username, String password) {
+
         Long id = 0L;
+
         try {
             List<UserDTO> users = UserDAO.getInstance().gets();
             for (UserDTO user: users) {
