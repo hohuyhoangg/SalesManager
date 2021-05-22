@@ -18,8 +18,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hohuyhoangg.salesmanager18110284.R;
+import com.hohuyhoangg.salesmanager18110284.adapter.RecyclerViewBrandAdapter;
 import com.hohuyhoangg.salesmanager18110284.adapter.RecyclerViewCategoryAdapter;
 import com.hohuyhoangg.salesmanager18110284.adapter.RecyclerViewProductAdapter;
+import com.hohuyhoangg.salesmanager18110284.model.dao.BrandDAO;
+import com.hohuyhoangg.salesmanager18110284.model.dao.CategoryDAO;
+import com.hohuyhoangg.salesmanager18110284.model.dao.ProductDAO;
+import com.hohuyhoangg.salesmanager18110284.model.dto.BrandDTO;
 import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryDTO;
 import com.hohuyhoangg.salesmanager18110284.model.dto.ProductDTO;
 import com.synnapps.carouselview.CarouselView;
@@ -36,7 +41,8 @@ public class HomeFragment extends Fragment {
     CarouselView carouselView;
     List<CategoryDTO> categories;
     List<ProductDTO> products;
-    RecyclerView recyclerViewCategory,recyclerViewProduct;
+    List<BrandDTO> brands;
+    RecyclerView recyclerViewCategory,recyclerViewProduct,recyclerViewBrand;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,8 +51,9 @@ public class HomeFragment extends Fragment {
         carouselView = (CarouselView) view.findViewById(R.id.carouselView);
         recyclerViewCategory = (RecyclerView) view.findViewById(R.id.recyclerviewCategory_id);
         recyclerViewProduct = (RecyclerView) view.findViewById(R.id.recyclerviewProduct_id);
-
+        recyclerViewBrand = (RecyclerView) view.findViewById(R.id.recyclerviewBrand_id);
         initCarouseView();
+        initRecyclerViewBrand();
         initRecyclerViewCategory();
         initRecyclerViewProduct();
         return view;
@@ -68,22 +75,7 @@ public class HomeFragment extends Fragment {
         });
     }
     public void initRecyclerViewCategory(){
-        categories = new ArrayList<>();
-        categories.add(new CategoryDTO("1","Một nè","aaa",true));
-        categories.add(new CategoryDTO("2","Hai nè","aaa",true));
-        categories.add(new CategoryDTO("3","Ba nè","aaa",true));
-        categories.add(new CategoryDTO("4","Bốn nè","aaa",true));
-        categories.add(new CategoryDTO("5","Năm nè","aaa",true));
-        categories.add(new CategoryDTO("6","Sáu nè","aaa",true));
-        categories.add(new CategoryDTO("4","Bảy nè","aaa",true));
-        categories.add(new CategoryDTO("1","Một nè","aaa",true));
-        categories.add(new CategoryDTO("2","Hai nè","aaa",true));
-        categories.add(new CategoryDTO("3","Ba nè","aaa",true));
-        categories.add(new CategoryDTO("4","Bốn nè","aaa",true));
-        categories.add(new CategoryDTO("5","Năm nè","aaa",true));
-        categories.add(new CategoryDTO("6","Sáu nè","aaa",true));
-        categories.add(new CategoryDTO("4","Bảy nè","aaa",true));
-
+        categories = CategoryDAO.getInstance().gets();
         RecyclerViewCategoryAdapter recyclerViewCategoryAdapter = new RecyclerViewCategoryAdapter(getContext(), categories);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
@@ -94,28 +86,7 @@ public class HomeFragment extends Fragment {
         recyclerViewCategoryAdapter.notifyDataSetChanged();
     }
     public void initRecyclerViewProduct(){
-        products = new ArrayList<>();
-        BigDecimal a = BigDecimal.valueOf(10);
-        Date date = new Date();
-        Double b = 5.2;
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
-        products.add(new ProductDTO("1","1","1",1L,"1",1,b,"1",a,a,date,"1","1","Một nè","aaa","1",true));
+        products = ProductDAO.getInstance().gets();
         RecyclerViewProductAdapter recyclerViewProductAdapter = new RecyclerViewProductAdapter(getContext(), products);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
@@ -124,5 +95,21 @@ public class HomeFragment extends Fragment {
         recyclerViewProduct.setHasFixedSize(true);
         recyclerViewProduct.setAdapter(recyclerViewProductAdapter);
         recyclerViewProductAdapter.notifyDataSetChanged();
+    }
+    public void initRecyclerViewBrand(){
+        brands = BrandDAO.getInstance().gets();
+
+
+        RecyclerViewBrandAdapter recyclerViewBrandAdapter = new RecyclerViewBrandAdapter(getContext(), brands);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerViewBrand.setLayoutManager(layoutManager);
+        recyclerViewBrand.setHasFixedSize(true);
+        recyclerViewBrand.setAdapter(recyclerViewBrandAdapter);
+        recyclerViewBrandAdapter.notifyDataSetChanged();
+
+
+
     }
 }

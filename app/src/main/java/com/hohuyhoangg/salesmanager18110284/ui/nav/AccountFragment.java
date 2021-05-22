@@ -27,6 +27,7 @@ public class AccountFragment extends Fragment {
     SharedPreferences.Editor editor;
     ImageButton btnLoginNewAccount;
     TextView textNameAccount;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,23 +39,24 @@ public class AccountFragment extends Fragment {
         LoginNewAccountListener();
         return view;
     }
-    public void initCreate(){
+
+    public void initCreate() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         editor = sharedPreferences.edit();
 //        editor.putString("account", "0");
 //        editor.commit();
 
     }
-    public void LoginNewAccountListener(){
+
+    public void LoginNewAccountListener() {
         btnLoginNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String savedStatusAccount = sharedPreferences.getString("account", "");
-                if(savedStatusAccount.equals("0")){
+                if (savedStatusAccount.equals("0")) {
                     Intent intent = new Intent(getContext(), LoginUser.class);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Intent intent = new Intent(getContext(), LoginSuccess.class);
                     startActivity(intent);
                 }
@@ -62,12 +64,15 @@ public class AccountFragment extends Fragment {
             }
         });
     }
-    public void init(){
+
+    public void init() {
         String savedStatusAccount = sharedPreferences.getString("account", "");
-        if(!savedStatusAccount.equals("0")){
+        if (!savedStatusAccount.equals("0")) {
             UserDTO user = UserDAO.getInstance().getById(StringUtils.toLong(savedStatusAccount));
-            String name = user.getLastName() + " " + user.getFirstName();
-            textNameAccount.setText(name);
+            if (user != null) {
+                String name = user.getLastName() + " " + user.getFirstName();
+                textNameAccount.setText(name);
+            }
         }
     }
 }

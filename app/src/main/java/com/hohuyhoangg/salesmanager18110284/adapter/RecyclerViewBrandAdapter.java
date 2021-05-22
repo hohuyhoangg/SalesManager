@@ -13,37 +13,38 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hohuyhoangg.salesmanager18110284.R;
-import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryDTO;
+import com.hohuyhoangg.salesmanager18110284.model.dto.BrandDTO;
 import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerViewCategoryAdapter.MyViewHolder> {
-
+public class RecyclerViewBrandAdapter extends RecyclerView.Adapter<RecyclerViewBrandAdapter.MyViewHolder>{
     private Context mContext;
-    private List<CategoryDTO> mData;
+    private List<BrandDTO> mData;
 
-    public RecyclerViewCategoryAdapter(Context mContext, List<CategoryDTO> mData) {
+    public RecyclerViewBrandAdapter(Context mContext, List<BrandDTO> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewBrandAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        view = layoutInflater.inflate(R.layout.cardview_item_category,parent,false);
-        return new MyViewHolder(view);
+        view = layoutInflater.inflate(R.layout.cardview_item_brand,parent,false);
+        return new RecyclerViewBrandAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewBrandAdapter.MyViewHolder holder, int position) {
 
-        holder.tv_category_title.setText(mData.get(position).getTitle());
+        holder.tv_brand_title.setText(mData.get(position).getBrandName());
         Bitmap bitmap = Base64Utils.stringToBitmap(mData.get(position).getImagePath());
-        holder.img_category_thumbnail.setImageBitmap(bitmap);
+        holder.img_brand_thumbnail.setImageBitmap(bitmap);
         //set click
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -62,16 +63,15 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView tv_category_title;
-        ImageView img_category_thumbnail;
+        TextView tv_brand_title;
+        ImageView img_brand_thumbnail;
         CardView cardView;
         public  MyViewHolder (View itemView){
             super(itemView);
 
-            tv_category_title = (TextView) itemView.findViewById(R.id.category_title_id);
-            img_category_thumbnail = (ImageView) itemView.findViewById(R.id.category_img_id);
+            tv_brand_title = (TextView) itemView.findViewById(R.id.brand_title_id);
+            img_brand_thumbnail = (ImageView) itemView.findViewById(R.id.brand_img_id);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
         }
     }
-
 }

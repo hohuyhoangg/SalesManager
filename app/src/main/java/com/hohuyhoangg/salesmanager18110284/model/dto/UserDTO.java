@@ -9,7 +9,7 @@ public class UserDTO {
     String lastName;
     String firstName;
     String gender;
-    Date dateOfBirth;
+    String dateOfBirth;
     String imagePath;
     String phoneNumber;
     String email;
@@ -24,7 +24,7 @@ public class UserDTO {
             lastName = resultSet.getString("LAST_NAME");
             firstName = resultSet.getString("FIRST_NAME");
             gender = resultSet.getString("GENDER");
-            dateOfBirth = resultSet.getDate("DATE_OF_BIRTH");
+            dateOfBirth = resultSet.getString("DATE_OF_BIRTH");
             imagePath = resultSet.getString("IMAGE");
             phoneNumber = resultSet.getString("PHONE_NUMBER");
             email = resultSet.getString("EMAIL");
@@ -37,7 +37,7 @@ public class UserDTO {
         }
     }
 
-    public UserDTO(Long userId, String lastName, String firstName, String gender, Date dateOfBirth, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
+    public UserDTO(Long userId, String lastName, String firstName, String gender, String dateOfBirth, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
         this.userId = userId;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -84,11 +84,11 @@ public class UserDTO {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

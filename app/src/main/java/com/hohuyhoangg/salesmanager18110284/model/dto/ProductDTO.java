@@ -8,50 +8,50 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class ProductDTO {
-    String productId;
+    Long productId;
 
-    String categoryId;
-    String sellerId;
+    Long sellerId;
     Long brandId;
+
     String productName;
     Integer quantity;
     Double productRate;
     String productOrigin;
+    String productDesc;
 
     BigDecimal priceOrigin;
     BigDecimal priceOrder;
-
-    Date productCreateDate;
 
     String image0;
     String image1;
     String image2;
     String image3;
     String image4;
+
     Boolean status;
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getSellerId() {
+    public Long getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(String sellerId) {
+    public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 
     public String getProductName() {
@@ -60,6 +60,14 @@ public class ProductDTO {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Double getProductRate() {
@@ -78,6 +86,14 @@ public class ProductDTO {
         this.productOrigin = productOrigin;
     }
 
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
+    }
+
     public BigDecimal getPriceOrigin() {
         return priceOrigin;
     }
@@ -92,14 +108,6 @@ public class ProductDTO {
 
     public void setPriceOrder(BigDecimal priceOrder) {
         this.priceOrder = priceOrder;
-    }
-
-    public Date getProductCreateDate() {
-        return productCreateDate;
-    }
-
-    public void setProductCreateDate(Date productCreateDate) {
-        this.productCreateDate = productCreateDate;
     }
 
     public String getImage0() {
@@ -150,35 +158,18 @@ public class ProductDTO {
         this.status = status;
     }
 
-    public Long getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public ProductDTO(ResultSet resultSet) {
         try {
-            productId = resultSet.getString("PRODUCT_ID");
+            productId = resultSet.getLong("PRODUCT_ID");
             brandId = resultSet.getLong("BRAND_ID");
-            categoryId = resultSet.getString("CATEGORY_ID");
-            sellerId = resultSet.getString("SELLER_ID");
+            sellerId = resultSet.getLong("SELLER_ID");
             productName = resultSet.getString("PRODUCT_NAME");
             quantity = resultSet.getInt("QUANTITY");
             productRate = resultSet.getDouble("PRODUCT_RATE");
             productOrigin = resultSet.getString("PRODUCT_ORIGIN");
+            productDesc = resultSet.getString("PRODUCT_DESC");
             priceOrigin = resultSet.getBigDecimal("PRICE_ORIGIN");
             priceOrder = resultSet.getBigDecimal("PRICE_ORDER");
-            productCreateDate = resultSet.getDate("PRODUCT_CREATE_DATE");
             image0 = resultSet.getString("IMAGE_0");
             image1 = resultSet.getString("IMAGE_1");
             image2 = resultSet.getString("IMAGE_2");
@@ -192,20 +183,19 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(String productId, String categoryId, String sellerId, Long brandId, String productName, Integer quantity, Double productRate,
-                      String productOrigin, BigDecimal priceOrigin, BigDecimal priceOrder, Date productCreateDate, String image0, String image1,
-                      String image2, String image3, String image4, Boolean status) {
+    public ProductDTO(Long productId, Long sellerId, Long brandId, String productName, Integer quantity, Double productRate,
+                      String productOrigin, String productDesc, BigDecimal priceOrigin, BigDecimal priceOrder, String image0,
+                      String image1, String image2, String image3, String image4, Boolean status) {
         this.productId = productId;
-        this.categoryId = categoryId;
         this.sellerId = sellerId;
         this.brandId = brandId;
         this.productName = productName;
         this.quantity = quantity;
         this.productRate = productRate;
         this.productOrigin = productOrigin;
+        this.productDesc = productDesc;
         this.priceOrigin = priceOrigin;
         this.priceOrder = priceOrder;
-        this.productCreateDate = productCreateDate;
         this.image0 = image0;
         this.image1 = image1;
         this.image2 = image2;

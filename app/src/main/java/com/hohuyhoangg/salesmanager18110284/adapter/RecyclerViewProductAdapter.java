@@ -1,6 +1,7 @@
 package com.hohuyhoangg.salesmanager18110284.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryDTO;
 import com.hohuyhoangg.salesmanager18110284.model.dto.ProductDTO;
+import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 
 import java.util.List;
 
@@ -43,6 +45,8 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
 
         holder.tv_product_title.setText(mData.get(position).getProductName());
         holder.tv_product_price.setText(mData.get(position).getPriceOrder().toString());
+        Bitmap bitmap = Base64Utils.stringToBitmap(mData.get(position).getImage0());
+        holder.img_product_thumbnail.setImageBitmap(bitmap);
         //set click
 
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {

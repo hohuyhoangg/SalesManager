@@ -5,16 +5,16 @@ import java.sql.SQLException;
 
 public class CategoryDTO {
 
-    String categoryId;
+    Long categoryId;
     String title;
     String imagePath;
     Boolean status;
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -44,8 +44,8 @@ public class CategoryDTO {
 
     public CategoryDTO(ResultSet resultSet) {
         try {
-            categoryId = resultSet.getString("CATEGORY_ID");
-            title = resultSet.getString("TITLE");
+            categoryId = resultSet.getLong("CATEGORY_ID");
+            title = resultSet.getString("CATEGORY_TITLE");
             imagePath = resultSet.getString("IMAGE");
             status = resultSet.getBoolean("STATUS");
         } catch (SQLException exception) {
@@ -55,7 +55,7 @@ public class CategoryDTO {
     public CategoryDTO() {
     }
 
-    public CategoryDTO(String categoryId, String title, String imagePath, Boolean status) {
+    public CategoryDTO(Long categoryId, String title, String imagePath, Boolean status) {
         this.categoryId = categoryId;
         this.title = title;
         this.imagePath = imagePath;

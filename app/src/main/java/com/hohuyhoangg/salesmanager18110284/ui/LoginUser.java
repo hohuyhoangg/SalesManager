@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.hohuyhoangg.salesmanager18110284.MainActivity;
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.controller.LoginUserController;
 import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
@@ -70,15 +71,18 @@ public class LoginUser extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = inputUsername.getEditText().getText().toString();
                 String password = inputPassword.getEditText().getText().toString();
-                password = HashUtils.getMd5(Base64Utils.encodeFromString(password));
+                password = HashUtils.getMd5(password);
                 try {
                     Long userId = LoginUserController.getInstance().checkLogin(userName,password);
                     if(userId != 0){
                         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
                         editor = sharedPreferences.edit();
                         editor.putString("account", userId.toString());
+                        editor.putString("password", password);
                         editor.commit();
                         Toast.makeText(getApplication(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
                     }
                     else {
                         Toast.makeText(getApplication(),"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();

@@ -7,21 +7,27 @@ public class BrandDTO {
     Long brandId;
     String brandName;
     String brandOrigin;
+    String imagePath;
 
     public BrandDTO (ResultSet resultSet) {
         try {
             brandId = resultSet.getLong("BRAND_ID");
             brandName = resultSet.getString("BRAND_NAME");
             brandOrigin = resultSet.getString("BRAND_ORIGIN");
+            imagePath = resultSet.getString("IMAGE");
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
 
-    public BrandDTO(Long brandId, String brandName, String brandOrigin) {
+    public BrandDTO() {
+    }
+
+    public BrandDTO(Long brandId, String brandName, String brandOrigin, String imagePath) {
         this.brandId = brandId;
         this.brandName = brandName;
         this.brandOrigin = brandOrigin;
+        this.imagePath = imagePath;
     }
 
     public Long getBrandId() {
@@ -46,6 +52,14 @@ public class BrandDTO {
 
     public void setBrandOrigin(String brandOrigin) {
         this.brandOrigin = brandOrigin;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
 

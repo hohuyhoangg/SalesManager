@@ -61,7 +61,7 @@ public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncremen
                 dto.getLastName(),
                 dto.getFirstName(),
                 dto.getGender(),
-                FormatUtils.dateToString(dto.getDateOfBirth(), "yyyyMMdd"),
+                dto.getDateOfBirth(),
                 dto.getImagePath(),
                 dto.getPhoneNumber(),
                 dto.getEmail(),
@@ -74,12 +74,12 @@ public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncremen
 
     @Override
     public int update(UserDTO dto) {
-        String sql = "UPDATE USER SET LAST_NAME = ?, FIRST_NAME = ?, GENDER = ?, DATE_OF_BIRTH = ?, IMAGE_PATH = ?, PHONE_NUMBER = ?, EMAIL = ?, USER_NAME = ?, PASSWORD = ?, USER_TYPE = ?, STATUS = ? WHERE USER_ID = ?";
+        String sql = "UPDATE USER SET LAST_NAME = ?, FIRST_NAME = ?, GENDER = ?, DATE_OF_BIRTH = ?, IMAGE = ?, PHONE_NUMBER = ?, EMAIL = ?, USER_NAME = ?, PASSWORD = ?, USER_TYPE = ?, STATUS = ? WHERE USER_ID = ?";
         List<Object> parameters = Arrays.asList(
                 dto.getLastName(),
                 dto.getFirstName(),
                 dto.getGender(),
-                FormatUtils.dateToString(dto.getDateOfBirth(), "yyyyMMdd"),
+                dto.getDateOfBirth(),
                 dto.getImagePath(),
                 dto.getPhoneNumber(),
                 dto.getEmail(),
