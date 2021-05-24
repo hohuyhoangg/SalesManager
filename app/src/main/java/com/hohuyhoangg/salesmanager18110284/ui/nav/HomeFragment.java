@@ -108,8 +108,5 @@ public class HomeFragment extends Fragment {
         recyclerViewBrand.setHasFixedSize(true);
         recyclerViewBrand.setAdapter(recyclerViewBrandAdapter);
         recyclerViewBrandAdapter.notifyDataSetChanged();
-
-
-
     }
 }
