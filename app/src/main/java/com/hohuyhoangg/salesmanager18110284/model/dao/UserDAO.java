@@ -52,6 +52,20 @@ public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncremen
         return null;
     }
 
+    public UserDTO getByEmail(String email) {
+        String query = "SELECT * FROM USER WHERE EMAIL = "+ "'" + email + "'" +";";
+        ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+
+        try {
+            if (resultSet != null && resultSet.next()) {
+                return new UserDTO(resultSet);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public Long insert(UserDTO dto) {
         String sql = "INSERT INTO USER(LAST_NAME, FIRST_NAME, GENDER, DATE_OF_BIRTH, IMAGE, PHONE_NUMBER, EMAIL, USER_NAME, PASSWORD, USER_TYPE, STATUS)" +
