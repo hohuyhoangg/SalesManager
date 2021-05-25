@@ -25,7 +25,7 @@ public class LoginUserController {
         try {
             List<UserDTO> users = UserDAO.getInstance().gets();
             for (UserDTO user: users) {
-                if (user.getUserName().equals(username) && user.getPassword().equals(password)){
+                if (user.getUserName().equals(username) && user.getPassword().equals(password) && user.getStatus().equals(true)){
                     return user.getUserId();
                 }
             }

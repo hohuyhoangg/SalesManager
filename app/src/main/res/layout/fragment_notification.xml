@@ -5,6 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.nav.NotificationFragment">
 
+    <TextView
+        android:id="@+id/text_notification"
+        android:layout_width="match_parent"
+        android:text="Thông báo mới nhận"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:layout_marginTop="6dp"
+        android:textAlignment="center"
+        android:textColor="#B8B8B8"
+        android:layout_height="30dp"/>
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewNotification_id"
+        android:layout_width="match_parent"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="40dp"
+        android:layout_height="match_parent" />
 </FrameLayout>

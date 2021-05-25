@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -27,16 +28,26 @@ public class AccountFragment extends Fragment {
     SharedPreferences.Editor editor;
     ImageButton btnLoginNewAccount;
     TextView textNameAccount;
-
+    Button btnLoginAccount;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initCreate();
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-        btnLoginNewAccount = (ImageButton) view.findViewById(R.id.image_button_account);
-        textNameAccount = (TextView) view.findViewById(R.id.text_view_name_account);
-        init();
-        LoginNewAccountListener();
+        View view;
+        String savedStatusAccount = sharedPreferences.getString("account", "");
+        if(savedStatusAccount.equals("0")) {
+            view = inflater.inflate(R.layout.fragment_account_dont_login, container, false);
+            btnLoginAccount = (Button) view.findViewById(R.id.button_login_fragment);
+            LoginAccountListener();
+        } else {
+            view = inflater.inflate(R.layout.fragment_account, container, false);
+
+            btnLoginNewAccount = (ImageButton) view.findViewById(R.id.image_button_account);
+            textNameAccount = (TextView) view.findViewById(R.id.text_view_name_account);
+            init();
+            LoginNewAccountListener();
+        }
+
         return view;
     }
 
@@ -64,7 +75,15 @@ public class AccountFragment extends Fragment {
             }
         });
     }
-
+    public void LoginAccountListener() {
+        btnLoginAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), LoginUser.class);
+                startActivity(intent);
+            }
+        });
+    }
     public void init() {
         String savedStatusAccount = sharedPreferences.getString("account", "");
         if (!savedStatusAccount.equals("0")) {

@@ -37,6 +37,9 @@ public class UserDTO {
         }
     }
 
+    public UserDTO() {
+    }
+
     public UserDTO(Long userId, String lastName, String firstName, String gender, String dateOfBirth, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
         this.userId = userId;
         this.lastName = lastName;

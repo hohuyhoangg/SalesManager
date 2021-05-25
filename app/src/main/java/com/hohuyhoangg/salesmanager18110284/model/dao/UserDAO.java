@@ -54,8 +54,8 @@ public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncremen
 
     @Override
     public Long insert(UserDTO dto) {
-        String sql = "INSERT INTO USER(LAST_NAME, FIRST_NAME, GENDER, DATE_OF_BIRTH, IMAGE_PATH, PHONE_NUMBER, EMAIL, USER_NAME, PASSWORD, USER_TYPE)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO USER(LAST_NAME, FIRST_NAME, GENDER, DATE_OF_BIRTH, IMAGE, PHONE_NUMBER, EMAIL, USER_NAME, PASSWORD, USER_TYPE, STATUS)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         List<Object> parameters = Arrays.asList(
                 dto.getLastName(),
@@ -65,9 +65,10 @@ public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncremen
                 dto.getImagePath(),
                 dto.getPhoneNumber(),
                 dto.getEmail(),
-                dto.getUserName(),
+                dto.getEmail(),
                 dto.getPassword(),
-                dto.getUserType()
+                dto.getUserType(),
+                dto.getStatus()
         );
         return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
     }
