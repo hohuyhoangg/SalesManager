@@ -55,7 +55,7 @@ public class DatabaseUtils {
     public static Integer executeUpdate(String query, List<Object> parameter) {
         Integer result = 0;
         try {
-            result = new com.hohuyhoangg.salesmanager18110284.db.AsyncTaskExecuteUpdate().execute(setQuery(query, parameter)).get();
+            result = new AsyncTaskExecuteUpdate().execute(setQuery(query, parameter)).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

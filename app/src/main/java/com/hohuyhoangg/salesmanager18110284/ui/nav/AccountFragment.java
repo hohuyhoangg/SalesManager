@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -16,11 +18,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hohuyhoangg.salesmanager18110284.R;
+import com.hohuyhoangg.salesmanager18110284.adapter.RecyclerViewProductAdapter;
+import com.hohuyhoangg.salesmanager18110284.model.dao.ProductDAO;
 import com.hohuyhoangg.salesmanager18110284.model.dao.UserDAO;
+import com.hohuyhoangg.salesmanager18110284.model.dto.ProductDTO;
 import com.hohuyhoangg.salesmanager18110284.model.dto.UserDTO;
 import com.hohuyhoangg.salesmanager18110284.ui.LoginSuccess;
 import com.hohuyhoangg.salesmanager18110284.ui.LoginUser;
 import com.hohuyhoangg.salesmanager18110284.utils.StringUtils;
+
+import java.util.List;
 
 public class AccountFragment extends Fragment {
 
@@ -29,6 +36,7 @@ public class AccountFragment extends Fragment {
     ImageButton btnLoginNewAccount;
     TextView textNameAccount;
     Button btnLoginAccount;
+    RecyclerView recyclerViewProductAccount;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,6 +52,7 @@ public class AccountFragment extends Fragment {
 
             btnLoginNewAccount = (ImageButton) view.findViewById(R.id.image_button_account);
             textNameAccount = (TextView) view.findViewById(R.id.text_view_name_account);
+            recyclerViewProductAccount = (RecyclerView) view.findViewById(R.id.recyclerviewProduct_account_id);
             init();
             LoginNewAccountListener();
         }
@@ -91,6 +100,16 @@ public class AccountFragment extends Fragment {
             if (user != null) {
                 String name = user.getLastName() + " " + user.getFirstName();
                 textNameAccount.setText(name);
+
+                List<ProductDTO> products = ProductDAO.getInstance().getListProductByUserId(user.getUserId());
+                RecyclerViewProductAdapter recyclerViewProductAdapter = new RecyclerViewProductAdapter(getContext(), products);
+
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+                layoutManager.setOrientation(RecyclerView.VERTICAL);
+                recyclerViewProductAccount.setLayoutManager(layoutManager);
+                recyclerViewProductAccount.setHasFixedSize(true);
+                recyclerViewProductAccount.setAdapter(recyclerViewProductAdapter);
+                recyclerViewProductAdapter.notifyDataSetChanged();
             }
         }
     }

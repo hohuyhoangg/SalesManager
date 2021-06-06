@@ -1,11 +1,9 @@
 package com.hohuyhoangg.salesmanager18110284.model.dao;
 
-
 import com.hohuyhoangg.salesmanager18110284.db.DatabaseUtils;
 import com.hohuyhoangg.salesmanager18110284.interfaces.IDataGet;
 import com.hohuyhoangg.salesmanager18110284.interfaces.IDataUpdateAutoIncrement;
-import com.hohuyhoangg.salesmanager18110284.model.dto.BrandDTO;
-import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryDTO;
+import com.hohuyhoangg.salesmanager18110284.model.dto.CartDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +12,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CategoryDAO implements IDataGet<Long, CategoryDTO>, IDataUpdateAutoIncrement<Long, CategoryDTO> {
-    @Override
-    public ArrayList<CategoryDTO> gets() {
-        ArrayList<CategoryDTO> result = new ArrayList<>();
+public class CartDAO implements IDataGet<Long, CartDTO>, IDataUpdateAutoIncrement<Long, CartDTO> {
 
-        String query = "SELECT * FROM CATEGORY;";
+    @Override
+    public ArrayList<CartDTO> gets() {
+        ArrayList<CartDTO> result = new ArrayList<>();
+        String query = "SELECT * FROM CART;";
         ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
 
         if (resultSet == null) {
@@ -28,8 +26,8 @@ public class CategoryDAO implements IDataGet<Long, CategoryDTO>, IDataUpdateAuto
 
         try {
             while (resultSet.next()) {
-                CategoryDTO categoryModel = new CategoryDTO(resultSet);
-                result.add(categoryModel);
+                CartDTO cartModel = new CartDTO(resultSet);
+                result.add(cartModel);
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -38,10 +36,9 @@ public class CategoryDAO implements IDataGet<Long, CategoryDTO>, IDataUpdateAuto
         return result;
     }
 
-    public ArrayList<CategoryDTO> getListByProductId(Long id) {
-        ArrayList<CategoryDTO> result = new ArrayList<>();
-
-        String query = "SELECT * FROM `CATEGORY` AS A, (SELECT CATEGORY_ID FROM `CATEGORY_PRODUCT` WHERE PRODUCT_ID =" + id + ") AS B  WHERE A.CATEGORY_ID = B.CATEGORY_ID;";
+    public ArrayList<CartDTO> getByUser(Long id) {
+        ArrayList<CartDTO> result = new ArrayList<>();
+        String query = "SELECT * FROM CART WHERE USER_ID = " + id + ";";
         ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
 
         if (resultSet == null) {
@@ -50,8 +47,8 @@ public class CategoryDAO implements IDataGet<Long, CategoryDTO>, IDataUpdateAuto
 
         try {
             while (resultSet.next()) {
-                CategoryDTO categoryModel = new CategoryDTO(resultSet);
-                result.add(categoryModel);
+                CartDTO cartModel = new CartDTO(resultSet);
+                result.add(cartModel);
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -59,14 +56,21 @@ public class CategoryDAO implements IDataGet<Long, CategoryDTO>, IDataUpdateAuto
 
         return result;
     }
+
     @Override
-    public CategoryDTO getById(Long id) {
-        String query = "SELECT *  FROM CATEGORY WHERE CATEGORY_ID = " + id + ";";
+    public CartDTO getById(Long id) {
+
+        return null;
+    }
+
+    public CartDTO getByIdTwo(Long id, Long productId) {
+
+        String query = "SELECT * FROM CART WHERE USER_ID = " + id + " AND PRODUCT_ID = " + productId + ";";
         ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
 
         try {
             if (resultSet != null && resultSet.next()) {
-                return new CategoryDTO(resultSet);
+                return new CartDTO(resultSet);
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -75,45 +79,54 @@ public class CategoryDAO implements IDataGet<Long, CategoryDTO>, IDataUpdateAuto
     }
 
     @Override
-    public Long insert(CategoryDTO dto) {
-        String sql = "INSERT INTO USER(CATEGORY_TITLE, IMAGE, STATUS)" +
+    public Long insert(CartDTO dto) {
+        String sql = "INSERT INTO CART(USER_ID, PRODUCT_ID, QUANTITY)" +
                 "VALUES (?, ?, ?);";
 
         List<Object> parameters = Arrays.asList(
-                dto.getTitle(),
-                dto.getImagePath(),
-                dto.getStatus()
+                dto.getUserId(),
+                dto.getProductId(),
+                dto.getQuantity()
         );
         return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
     }
 
     @Override
-    public int update(CategoryDTO dto) {
-        String sql = "UPDATE CATEGORY SET CATEGORY_TITLE = ?, IMAGE = ?, STATUS = ? WHERE CATEGORY_ID = ?";
+    public int update(CartDTO dto) {
+        String sql = "UPDATE CART SET QUANTITY = ? WHERE USER_ID = ? AND PRODUCT_ID = ? ";
         List<Object> parameters = Arrays.asList(
-                dto.getTitle(),
-                dto.getImagePath(),
-                dto.getStatus(),
-                dto.getCategoryId()
+                dto.getQuantity(),
+                dto.getUserId(),
+                dto.getProductId()
         );
         return DatabaseUtils.executeUpdate(sql, parameters);
     }
 
     @Override
     public int delete(Long id) {
-        String sql = "DELETE FROM CATEGORY WHERE CATEGORY_ID = ?";
+        String sql = "DELETE FROM CART WHERE USER_ID = ?";
         List<Object> parameters = Collections.singletonList(id);
         return DatabaseUtils.executeUpdate(sql, parameters);
     }
 
-    private static CategoryDAO instance = null;
+    public int deleteItem(CartDTO dto) {
+        String sql = "DELETE FROM CART WHERE USER_ID = ? AND PRODUCT_ID = ?";
 
-    private CategoryDAO() {
+        List<Object> parameters = Arrays.asList(
+                dto.getUserId(),
+                dto.getProductId()
+        );
+
+        return DatabaseUtils.executeUpdate(sql, parameters);
+    }
+    private static CartDAO instance = null;
+
+    private CartDAO() {
     }
 
-    public static CategoryDAO getInstance() {
+    public static CartDAO getInstance() {
         if (instance == null) {
-            instance = new CategoryDAO();
+            instance = new CartDAO();
         }
         return instance;
     }

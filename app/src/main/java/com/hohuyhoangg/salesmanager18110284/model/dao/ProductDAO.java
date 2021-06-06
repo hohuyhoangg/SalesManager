@@ -38,6 +38,74 @@ public class ProductDAO implements IDataGet<Long, ProductDTO>, IDataUpdateAutoIn
         return result;
     }
 
+    public ArrayList<ProductDTO> searchLike(String text) {
+        ArrayList<ProductDTO> result = new ArrayList<>();
+
+        String query = "SELECT * FROM `PRODUCT` WHERE PRODUCT_NAME LIKE '%"+ text + "%';";
+        ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+
+        if (resultSet == null) {
+            return result;
+        }
+
+        try {
+            while (resultSet.next()) {
+                ProductDTO productModel = new ProductDTO(resultSet);
+                result.add(productModel);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public ArrayList<ProductDTO> getListProductByProductId(Long id) {
+        ArrayList<ProductDTO> result = new ArrayList<>();
+
+        String query = "SELECT * FROM `PRODUCT` AS A, ((SELECT DISTINCT PRODUCT_ID FROM `CATEGORY_PRODUCT` AS B " +
+                "WHERE CATEGORY_ID IN (SELECT CATEGORY_ID FROM `CATEGORY_PRODUCT` WHERE PRODUCT_ID =" + id + "))) AS " +
+                "B WHERE A.PRODUCT_ID = B.PRODUCT_ID;";
+        ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+
+        if (resultSet == null) {
+            return result;
+        }
+
+        try {
+            while (resultSet.next()) {
+                ProductDTO productModel = new ProductDTO(resultSet);
+                result.add(productModel);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public ArrayList<ProductDTO> getListProductByUserId(Long id) {
+        ArrayList<ProductDTO> result = new ArrayList<>();
+
+        String query = "SELECT * FROM `PRODUCT` AS A, (SELECT DISTINCT PRODUCT_ID FROM `BILL_DETAIL` WHERE BILL_ID IN (SELECT BILL_ID FROM `BILL` " +
+                "WHERE USER_ID = "+ id + ")) AS B WHERE A.PRODUCT_ID = B.PRODUCT_ID;";
+        ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+
+        if (resultSet == null) {
+            return result;
+        }
+
+        try {
+            while (resultSet.next()) {
+                ProductDTO productModel = new ProductDTO(resultSet);
+                result.add(productModel);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return result;
+    }
     @Override
     public ProductDTO getById(Long id) {
         String query = "SELECT * FROM PRODUCT WHERE PRODUCT_ID = " + id + ";";

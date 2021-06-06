@@ -24,7 +24,7 @@ public class AsyncTaskExecuteUpdateAutoIncrement extends AsyncTask<List<Object>,
             prepStmt = connection.prepareStatement(input[0].get(0).toString(), Statement.RETURN_GENERATED_KEYS);
             input[0].remove(0);
             if (input[0] != null) {
-                com.hohuyhoangg.salesmanager18110284.db.DatabaseUtils.setParameters(prepStmt, input[0]);
+                DatabaseUtils.setParameters(prepStmt, input[0]);
             }
             if (prepStmt.executeUpdate() != 0) {
                 rs = prepStmt.getGeneratedKeys();

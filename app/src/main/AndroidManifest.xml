@@ -20,7 +20,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SalesManager">
-        <activity android:name=".ui.LoginSuccess"></activity>
+        <activity android:name=".ui.OrderSuccess"></activity>
+        <activity android:name=".ui.Address" />
+        <activity android:name=".ui.Order" />
+        <activity android:name=".ui.Cart" />
+        <activity android:name=".ui.DetailProduct" />
+        <activity android:name=".ui.LoginSuccess" />
         <activity android:name=".ui.RegisterSuccess" />
         <activity android:name=".ui.ResetPasswordSuccess" />
         <activity android:name=".ui.ResetPassword" />

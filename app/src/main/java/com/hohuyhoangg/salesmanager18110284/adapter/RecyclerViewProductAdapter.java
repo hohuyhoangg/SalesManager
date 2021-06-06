@@ -1,6 +1,7 @@
 package com.hohuyhoangg.salesmanager18110284.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hohuyhoangg.salesmanager18110284.MainActivity;
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryDTO;
 import com.hohuyhoangg.salesmanager18110284.model.dto.ProductDTO;
+import com.hohuyhoangg.salesmanager18110284.ui.DetailProduct;
 import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerViewProductAdapter.MyViewHolder> {
 
@@ -44,7 +49,13 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.tv_product_title.setText(mData.get(position).getProductName());
-        holder.tv_product_price.setText(mData.get(position).getPriceOrder().toString());
+
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String str1 = currencyVN.format(mData.get(position).getPriceOrder());
+        String a = str1.substring(1);
+        holder.tv_product_price.setText(a + " đ");
+
         Bitmap bitmap = Base64Utils.stringToBitmap(mData.get(position).getImage0());
         holder.img_product_thumbnail.setImageBitmap(bitmap);
         //set click
@@ -52,7 +63,11 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"hehehhe", Toast.LENGTH_SHORT).show();
+                ProductDTO  productDTO = mData.get(position);
+
+                Intent intent = new Intent(mContext, DetailProduct.class);
+                intent.putExtra("product", productDTO);
+                mContext.startActivity(intent);
             }
         });
     }

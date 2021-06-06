@@ -39,7 +39,7 @@ public class BrandDAO implements IDataGet<Long, BrandDTO>, IDataUpdateAutoIncrem
 
     @Override
     public BrandDTO getById(Long id) {
-        String query = "SELECT * FROM USER WHERE BRAND_ID = " + id + ";";
+        String query = "SELECT * FROM BRAND WHERE BRAND_ID = " + id + ";";
         ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
 
         try {
@@ -54,7 +54,7 @@ public class BrandDAO implements IDataGet<Long, BrandDTO>, IDataUpdateAutoIncrem
 
     @Override
     public Long insert(BrandDTO dto) {
-        String sql = "INSERT INTO USER(BRAND_NAME, BRAND_ORIGIN, IMAGE)" +
+        String sql = "INSERT INTO BRAND(BRAND_NAME, BRAND_ORIGIN, IMAGE)" +
                 "VALUES (?, ?, ?);";
 
         List<Object> parameters = Arrays.asList(

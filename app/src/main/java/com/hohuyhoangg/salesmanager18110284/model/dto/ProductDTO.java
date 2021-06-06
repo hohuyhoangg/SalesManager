@@ -2,12 +2,13 @@ package com.hohuyhoangg.salesmanager18110284.model.dto;
 
 import org.apache.commons.codec.binary.StringUtils;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class ProductDTO {
+public class ProductDTO implements Serializable {
     Long productId;
 
     Long sellerId;

@@ -48,6 +48,7 @@ public class NotificationFragment extends Fragment {
         editor = sharedPreferences.edit();
         String savedStatusAccount = sharedPreferences.getString("account", "");
         if (!savedStatusAccount.equals("0")) {
+            textNotification.setVisibility(View.GONE);
             notifications = NotificationDAO.getInstance().initData();
             RecyclerViewNotificationAdapter recyclerViewNotificationAdapter = new RecyclerViewNotificationAdapter(getContext(), notifications);
 
