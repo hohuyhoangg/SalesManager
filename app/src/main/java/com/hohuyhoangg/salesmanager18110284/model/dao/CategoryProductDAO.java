@@ -9,6 +9,8 @@ import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryProductDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CategoryProductDAO implements IDataGet<Long, CategoryProductDTO>, IDataUpdateAutoIncrement<Long, CategoryProductDTO> {
     @Override
@@ -71,7 +73,14 @@ public class CategoryProductDAO implements IDataGet<Long, CategoryProductDTO>, I
 
     @Override
     public Long insert(CategoryProductDTO dto) {
-        return null;
+        String sql = "INSERT INTO `CATEGORY_PRODUCT`(PRODUCT_ID, CATEGORY_ID)" +
+                "VALUES (?, ?);";
+
+        List<Object> parameters = Arrays.asList(
+                dto.getProductId(),
+                dto.getCategoryId()
+        );
+        return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
     }
 
     @Override

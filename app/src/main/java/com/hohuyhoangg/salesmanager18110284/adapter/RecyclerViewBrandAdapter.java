@@ -1,6 +1,7 @@
 package com.hohuyhoangg.salesmanager18110284.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.model.dto.BrandDTO;
+import com.hohuyhoangg.salesmanager18110284.ui.BrandDetail;
 import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 
 import java.io.ByteArrayInputStream;
@@ -50,7 +52,9 @@ public class RecyclerViewBrandAdapter extends RecyclerView.Adapter<RecyclerViewB
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mContext, BrandDetail.class);
+                intent.putExtra("brandId", mData.get(position).getBrandId().toString().trim());
+                mContext.startActivity(intent);
             }
         });
     }
@@ -71,7 +75,7 @@ public class RecyclerViewBrandAdapter extends RecyclerView.Adapter<RecyclerViewB
 
             tv_brand_title = (TextView) itemView.findViewById(R.id.brand_title_id);
             img_brand_thumbnail = (ImageView) itemView.findViewById(R.id.brand_img_id);
-            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
+            cardView = (CardView) itemView.findViewById(R.id.card_view_brand_detail_id);
         }
     }
 }

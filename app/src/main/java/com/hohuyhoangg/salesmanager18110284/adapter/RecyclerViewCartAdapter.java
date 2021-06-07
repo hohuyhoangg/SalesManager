@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,10 +30,15 @@ import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 import com.hohuyhoangg.salesmanager18110284.utils.StringUtils;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCartAdapter.MyViewHolder>{
+
     private Context mContext;
     private List<CartDTO> mData;
     SharedPreferences sharedPreferences;

@@ -1,6 +1,7 @@
 package com.hohuyhoangg.salesmanager18110284.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryDTO;
+import com.hohuyhoangg.salesmanager18110284.ui.BrandDetail;
+import com.hohuyhoangg.salesmanager18110284.ui.CategoryDetail;
 import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 
 import java.util.List;
@@ -49,7 +52,9 @@ public class RecyclerViewCategoryAdapterCategoryFragment extends RecyclerView.Ad
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mContext, CategoryDetail.class);
+                intent.putExtra("categoryId", mData.get(position).getCategoryId().toString().trim());
+                mContext.startActivity(intent);
             }
         });
     }

@@ -20,7 +20,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SalesManager">
-        <activity android:name=".ui.OrderSuccess"></activity>
+        <activity android:name=".ui.AddProductSuccess"></activity>
+        <activity android:name=".ui.AddProduct" />
+        <activity android:name=".ui.MainSeller" />
+        <activity android:name=".ui.CategoryDetail" />
+        <activity android:name=".ui.BrandDetail" />
+        <activity android:name=".ui.OrderSuccess" />
         <activity android:name=".ui.Address" />
         <activity android:name=".ui.Order" />
         <activity android:name=".ui.Cart" />

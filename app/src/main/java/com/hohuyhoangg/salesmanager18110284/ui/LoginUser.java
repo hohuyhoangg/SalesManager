@@ -18,6 +18,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.hohuyhoangg.salesmanager18110284.MainActivity;
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.controller.LoginUserController;
+import com.hohuyhoangg.salesmanager18110284.model.dao.UserDAO;
+import com.hohuyhoangg.salesmanager18110284.model.dto.UserDTO;
 import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 import com.hohuyhoangg.salesmanager18110284.utils.HashUtils;
 
@@ -78,11 +80,18 @@ public class LoginUser extends AppCompatActivity {
                         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
                         editor = sharedPreferences.edit();
                         editor.putString("account", userId.toString());
-                        editor.putString("password", password);
+                        //editor.putString("password", password);
                         editor.commit();
-                        Toast.makeText(getApplication(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+                        UserDTO userDTO = UserDAO.getInstance().getById(userId);
+                        if(userDTO.getUserType().equals("CUSTOMER")){
+                            Toast.makeText(getApplication(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        } else if(userDTO.getUserType().equals("SELLER")) {
+                            Toast.makeText(getApplication(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainSeller.class);
+                            startActivity(intent);
+                        }
                     }
                     else {
                         Toast.makeText(getApplication(),"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();

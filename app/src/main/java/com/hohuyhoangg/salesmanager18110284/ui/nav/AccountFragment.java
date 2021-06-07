@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.adapter.RecyclerViewProductAdapter;
@@ -25,6 +26,7 @@ import com.hohuyhoangg.salesmanager18110284.model.dto.ProductDTO;
 import com.hohuyhoangg.salesmanager18110284.model.dto.UserDTO;
 import com.hohuyhoangg.salesmanager18110284.ui.LoginSuccess;
 import com.hohuyhoangg.salesmanager18110284.ui.LoginUser;
+import com.hohuyhoangg.salesmanager18110284.ui.MainSeller;
 import com.hohuyhoangg.salesmanager18110284.utils.StringUtils;
 
 import java.util.List;
@@ -34,7 +36,7 @@ public class AccountFragment extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ImageButton btnLoginNewAccount;
-    TextView textNameAccount;
+    TextView textNameAccount,textSeller;
     Button btnLoginAccount;
     RecyclerView recyclerViewProductAccount;
     @Nullable
@@ -52,8 +54,10 @@ public class AccountFragment extends Fragment {
 
             btnLoginNewAccount = (ImageButton) view.findViewById(R.id.image_button_account);
             textNameAccount = (TextView) view.findViewById(R.id.text_view_name_account);
+            textSeller = (TextView) view.findViewById(R.id.text_view_seller);
             recyclerViewProductAccount = (RecyclerView) view.findViewById(R.id.recyclerviewProduct_account_id);
             init();
+            initSeller();
             LoginNewAccountListener();
         }
 
@@ -112,5 +116,22 @@ public class AccountFragment extends Fragment {
                 recyclerViewProductAdapter.notifyDataSetChanged();
             }
         }
+    }
+    public void initSeller(){
+        textSeller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String savedStatusAccount = sharedPreferences.getString("account", "");
+                if (!savedStatusAccount.equals("0")) {
+                    UserDTO user = UserDAO.getInstance().getById(StringUtils.toLong(savedStatusAccount));
+                    if (user.getUserType().equals("SELLER")) {
+                        Intent intent = new Intent(getActivity(), MainSeller.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(getContext(),"Bạn không phải là một người bán!!!",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 }

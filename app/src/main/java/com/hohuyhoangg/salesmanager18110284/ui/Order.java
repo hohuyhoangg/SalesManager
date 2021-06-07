@@ -237,6 +237,7 @@ public class Order extends AppCompatActivity {
                             BillDetailDAO.getInstance().insert(billDetailDTO);
 
                             CartDAO.getInstance().deleteItem(cart);
+
                         }
                         Toast.makeText(getApplication(), "Thanh toán thành công.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplication(), OrderSuccess.class);

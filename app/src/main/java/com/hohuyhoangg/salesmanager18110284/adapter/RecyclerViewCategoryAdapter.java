@@ -1,6 +1,7 @@
 package com.hohuyhoangg.salesmanager18110284.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hohuyhoangg.salesmanager18110284.R;
 import com.hohuyhoangg.salesmanager18110284.model.dto.CategoryDTO;
+import com.hohuyhoangg.salesmanager18110284.ui.CategoryDetail;
 import com.hohuyhoangg.salesmanager18110284.utils.Base64Utils;
 
 import java.util.List;
@@ -49,7 +51,9 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mContext, CategoryDetail.class);
+                intent.putExtra("categoryId", mData.get(position).getCategoryId().toString().trim());
+                mContext.startActivity(intent);
             }
         });
     }
@@ -70,7 +74,7 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
 
             tv_category_title = (TextView) itemView.findViewById(R.id.category_title_id);
             img_category_thumbnail = (ImageView) itemView.findViewById(R.id.category_img_id);
-            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
+            cardView = (CardView) itemView.findViewById(R.id.card_view_category_id);
         }
     }
 

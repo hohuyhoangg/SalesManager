@@ -38,6 +38,28 @@ public class ProductDAO implements IDataGet<Long, ProductDTO>, IDataUpdateAutoIn
         return result;
     }
 
+    public ArrayList<ProductDTO> getListProductBySellerId(Long id) {
+        ArrayList<ProductDTO> result = new ArrayList<>();
+
+        String query = "SELECT * FROM `PRODUCT` WHERE SELLER_ID = "+ id +";";
+        ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+
+        if (resultSet == null) {
+            return result;
+        }
+
+        try {
+            while (resultSet.next()) {
+                ProductDTO productModel = new ProductDTO(resultSet);
+                result.add(productModel);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return result;
+    }
+
     public ArrayList<ProductDTO> searchLike(String text) {
         ArrayList<ProductDTO> result = new ArrayList<>();
 
@@ -106,6 +128,50 @@ public class ProductDAO implements IDataGet<Long, ProductDTO>, IDataUpdateAutoIn
 
         return result;
     }
+
+    public ArrayList<ProductDTO> getListProductByBrandId(Long id) {
+        ArrayList<ProductDTO> result = new ArrayList<>();
+
+        String query = "SELECT * FROM `PRODUCT` WHERE BRAND_ID = "+ id + ";";
+        ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+
+        if (resultSet == null) {
+            return result;
+        }
+
+        try {
+            while (resultSet.next()) {
+                ProductDTO productModel = new ProductDTO(resultSet);
+                result.add(productModel);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public ArrayList<ProductDTO> getListProductByCategoryId(Long id) {
+        ArrayList<ProductDTO> result = new ArrayList<>();
+
+        String query = "SELECT * FROM `PRODUCT` WHERE PRODUCT_ID IN (SELECT PRODUCT_ID FROM `CATEGORY_PRODUCT` WHERE CATEGORY_ID = "+ id + ")";
+        ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+
+        if (resultSet == null) {
+            return result;
+        }
+
+        try {
+            while (resultSet.next()) {
+                ProductDTO productModel = new ProductDTO(resultSet);
+                result.add(productModel);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return result;
+    }
     @Override
     public ProductDTO getById(Long id) {
         String query = "SELECT * FROM PRODUCT WHERE PRODUCT_ID = " + id + ";";
@@ -124,8 +190,8 @@ public class ProductDAO implements IDataGet<Long, ProductDTO>, IDataUpdateAutoIn
     @Override
     public Long insert(ProductDTO dto) {
         String sql = "INSERT INTO PRODUCT(BRAND_ID, SELLER_ID, PRODUCT_NAME, PRODUCT_RATE, PRODUCT_ORIGIN, PRODUCT_DESC, QUANTITY, " +
-                "PRICE_ORIGIN, PRICE_ORDER, IMAGE_0, IMAGE_1, IMAGE_2, IMAGE_3, IMAGE_4, STATUS)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                "PRICE_ORIGIN, PRICE_ORDER, IMAGE_0, STATUS)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         List<Object> parameters = Arrays.asList(
                 dto.getBrandId(),
@@ -138,10 +204,6 @@ public class ProductDAO implements IDataGet<Long, ProductDTO>, IDataUpdateAutoIn
                 dto.getPriceOrigin(),
                 dto.getPriceOrder(),
                 dto.getImage0(),
-                dto.getImage1(),
-                dto.getImage2(),
-                dto.getImage3(),
-                dto.getImage4(),
                 dto.getStatus()
         );
         return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);

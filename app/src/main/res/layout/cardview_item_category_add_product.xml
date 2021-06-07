@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="6dp"
+    android:paddingLeft="20dp"
+    android:layout_marginLeft="10dp"
+    app:cardCornerRadius="4dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/card_view_add_category_id">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/category_title_add_product_id"
+            android:layout_width="232dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="112dp"
+            android:layout_toStartOf="@+id/checkbox_add_product"
+            android:gravity="center_vertical"
+            android:text="Title"
+            android:textColor="#00BCD4"
+            android:textSize="13sp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_add_product"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            android:checked="false" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -47,7 +47,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="90dp"
                 android:background="#8F9798">
                 <TextView
                     android:id="@+id/text_view_name_account"
@@ -63,6 +63,24 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_view_seller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="136dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="45dp"
+                    android:layout_toStartOf="@+id/image_button_account"
+                    android:text="Kênh người bán"
+                    android:textAllCaps="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <ImageButton
                     android:id="@+id/image_button_account"
                     android:layout_width="60dp"
